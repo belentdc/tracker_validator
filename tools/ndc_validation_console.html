@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NDC Transport Tracker — Validation Console</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --ink:#1c2b2a; --paper:#f6f4ee; --card:#ffffff; --line:#dcd8cc;
+  --muted:#6c6a61; --accent:#0f6e56; --accent-soft:#e1f5ee;
+  --amber-bg:#faeeda; --amber-ink:#633806; --amber-line:#ef9f27;
+  --green-bg:#eaf3de; --green-ink:#27500a;
+  --danger:#a32d2d; --danger-bg:#fcebeb;
+  --radius:10px; --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --ink:#e8e6dd; --paper:#16201f; --card:#1d2827; --line:#34403e;
+    --muted:#9b988e; --accent:#5dcaa5; --accent-soft:#0f3a30;
+    --amber-bg:#3a2a10; --amber-ink:#fac775; --amber-line:#854f0b;
+    --green-bg:#1f3010; --green-ink:#c0dd97; --danger:#f09595; --danger-bg:#3a1414; }
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5}
+header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;background:var(--card)}
+header h1{font-size:19px;margin:0;font-weight:600;letter-spacing:-.01em}
+header .sub{font-size:13px;color:var(--muted)}
+header .spacer{flex:1}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 24px 80px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-bottom:18px}
+.panel h2{font-size:14px;margin:0 0 12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.btn{font-family:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 13px;cursor:pointer;transition:.12s}
+.btn:hover{background:var(--paper)}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.danger:hover{background:var(--danger-bg)}
+.btn.ghost{border-color:transparent}
+.row-flex{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+textarea{width:100%;min-height:120px;font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--paper);color:var(--ink);resize:vertical}
+input[type=text],select{font-family:inherit;font-size:13px;border:1px solid var(--line);border-radius:7px;padding:6px 8px;background:var(--card);color:var(--ink);width:100%}
+select:focus,input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.meta-grid label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+.tab{font-size:13px;padding:9px 15px;cursor:pointer;border:1px solid transparent;border-bottom:none;border-radius:8px 8px 0 0;color:var(--muted);position:relative;top:1px}
+.tab.active{background:var(--card);border-color:var(--line);color:var(--ink);font-weight:600}
+.tab .count{display:inline-block;min-width:18px;text-align:center;font-size:11px;background:var(--paper);border-radius:9px;padding:0 5px;margin-left:5px}
+.tab.active .count{background:var(--accent-soft);color:var(--accent)}
+.rowcard{border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:12px;background:var(--card)}
+.rowcard.flagged{border-color:var(--amber-line);background:var(--amber-bg)}
+.rowcard.confirmed{border-left:3px solid var(--accent)}
+.rowhead{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.pill{font-size:11px;padding:3px 9px;border-radius:7px;font-weight:500}
+.pill.dom{background:var(--accent-soft);color:var(--accent)}
+.pill.ok{background:var(--green-bg);color:var(--green-ink)}
+.pill.flag{background:var(--amber-bg);color:var(--amber-ink);border:1px solid var(--amber-line)}
+.pill.src{background:var(--paper);color:var(--muted)}
+.rowhead .page{margin-left:auto;font-size:12px;color:var(--muted)}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:720px){.quotes{grid-template-columns:1fr}}
+.qbox label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.qbox .verb{font-size:14px;background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:8px 10px;line-height:1.45}
+.qbox .trans{font-size:14px;color:var(--muted);padding:8px 2px;line-height:1.45}
+.qbox textarea{min-height:62px;font-family:var(--sans);font-size:14px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.fields .f label{font-size:11px;color:var(--muted);display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.multi{border:1px solid var(--line);border-radius:7px;padding:6px;background:var(--card);max-height:108px;overflow:auto}
+.multi label{display:flex;align-items:center;gap:6px;font-size:12.5px;text-transform:none;letter-spacing:0;color:var(--ink);padding:2px 0;cursor:pointer}
+.multi label.parent{font-weight:600;margin-top:3px}
+.multi label.child{padding-left:16px}
+.note{font-size:12.5px;background:var(--paper);border:1px dashed var(--line);border-radius:7px;padding:8px 10px;margin-bottom:10px;color:var(--ink)}
+.note b{color:var(--amber-ink)}
+.note textarea{min-height:42px;margin-top:6px;font-family:var(--sans);font-size:13px}
+.rowfoot{display:flex;gap:7px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:11px}
+.rowfoot .right{margin-left:auto}
+.empty{text-align:center;color:var(--muted);padding:50px 20px;font-size:14px}
+.summary{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:14px}
+.summary b{color:var(--ink);font-weight:600}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:8px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:50}
+.toast.show{opacity:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+code{font-family:var(--mono);font-size:12px;background:var(--paper);padding:1px 5px;border-radius:4px}
+details summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:500}
+</style>
+</head>
+<body>
+<header>
+  <h1>NDC Transport Tracker</h1>
+  <span class="sub">Validation console</span>
+  <span class="spacer"></span>
+  <div class="row-flex">
+    <button class="btn" id="loadSample">Load Cameroon sample</button>
+    <button class="btn" id="importBtn">Import JSON</button>
+    <button class="btn" id="saveDraft">Save draft</button>
+    <button class="btn primary" id="exportBtn">Export to Excel</button>
+  </div>
+</header>
+<div class="wrap">
+
+  <div class="panel" id="inputPanel">
+    <h2>1 · Paste extraction</h2>
+    <textarea id="jsonIn" placeholder="Paste the extraction JSON here, then click Parse. Or use Load Cameroon sample above to see it working."></textarea>
+    <div class="row-flex" style="margin-top:10px">
+      <button class="btn primary" id="parseBtn">Parse extraction</button>
+      <input type="file" id="fileIn" accept=".json" style="display:none">
+      <span class="hint">Source-agnostic: works with output from Claude now, the Policy Miner later — same JSON shape.</span>
+    </div>
+  </div>
+
+  <div class="panel" id="metaPanel" style="display:none">
+    <h2>2 · Document metadata <span style="font-weight:400;text-transform:none;letter-spacing:0">(stamped onto every exported row)</span></h2>
+    <div class="meta-grid" id="metaGrid"></div>
+    <div class="hint" id="genNote" style="margin-top:10px"></div>
+  </div>
+
+  <div id="board" style="display:none">
+    <div class="summary" id="summary"></div>
+    <div class="tabs" id="tabs"></div>
+    <div id="rows"></div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const TAX = {"mitigation": [{"label": "Mode shift and demand management", "code": "C_Mode", "purposes": [{"label": "Transport demand management", "code": "P_TDM", "instruments": [{"label": "Transport demand management measures", "code": "A_TDM"}, {"label": "Car access restriction and low emission zones", "code": "A_Caraccess"}, {"label": "Commuter trip reduction policies", "code": "A_Commute"}, {"label": "Parking measures", "code": "S_Parking"}]}, {"label": "Economic conditions for sustainable transport", "code": "P_Sustainable", "instruments": [{"label": "General economic instruments", "code": "A_Economic"}, {"label": "Emissions trading and carbon pricing", "code": "A_Emistrad"}, {"label": "Financial instruments to support decarbonisation", "code": "A_Finance"}, {"label": "Fossil fuel subsidy elimination", "code": "A_Fossilfuelsubs"}, {"label": "Fuel taxation", "code": "A_Fueltax"}, {"label": "Green public procurement", "code": "A_Procurement"}, {"label": "Road charging and tolls", "code": "A_Roadcharging"}, {"label": "Vehicle taxation", "code": "A_Vehicletax"}]}, {"label": "Digital solutions", "code": "P_DigitalEff", "instruments": [{"label": "Measures supporting autonomous vehicles", "code": "I_Autonomous"}, {"label": "Data and modelling improvements", "code": "I_DataModelling"}, {"label": "General innovations and digitalization", "code": "I_Other"}, {"label": "Intelligent transport systems", "code": "I_ITS"}, {"label": "Shared mobility", "code": "S_Sharedmob"}]}, {"label": "Promote active mobility", "code": "P_Active", "instruments": [{"label": "General active mobility", "code": "S_Activemobility"}, {"label": "Cycling measures", "code": "S_Cycling"}, {"label": "Walking measures", "code": "S_Walking"}]}, {"label": "Public transport improvement", "code": "P_Public", "instruments": [{"label": "BRT", "code": "S_BRT"}, {"label": "Public transport integration and expansion", "code": "S_PTIntegration"}, {"label": "Express lanes/ public transport priority", "code": "S_PTPriority"}, {"label": "General public transport improvement", "code": "S_PublicTransport"}]}]}, {"label": "Transport system improvements", "code": "C_System", "purposes": [{"label": "Enhance comprehensive transport planning", "code": "P_Planning", "instruments": [{"label": "General transport and land use planning", "code": "A_Complan"}, {"label": "Traffic management improvements", "code": "A_LATM"}, {"label": "National mobility plans", "code": "A_Natmobplan"}, {"label": "Sustainable urban mobility plans", "code": "A_SUMP"}, {"label": "Access improvement instruments (density, mixed use)", "code": "A_Mixuse"}]}, {"label": "Improve infrastructure", "code": "P_Infrastructure", "instruments": [{"label": "Expansion of infrastructure", "code": "S_Infraexpansion"}, {"label": "Infrastructure improvements", "code": "S_Infraimprove"}, {"label": "Intermodality measures", "code": "S_Intermodality"}]}, {"label": "Freight efficiency improvements", "code": "P_Freight", "instruments": [{"label": "General freight efficiency improvements", "code": "I_Freighteff"}, {"label": "Improving load", "code": "I_Load"}, {"label": "Freight transport shifting to rail or inland waterways", "code": "S_Railfreight"}]}, {"label": "Education and behavioral change", "code": "P_Education", "instruments": [{"label": "Ecodriving", "code": "I_Ecodriving"}, {"label": "General education and behavior change", "code": "I_Education"}]}]}, {"label": "Energy efficiency", "code": "C_Efficiency", "purposes": [{"label": "Promote vehicle improvements", "code": "P_Vehicles", "instruments": [{"label": "Labelling requirements", "code": "I_Vehiclelabel"}, {"label": "Vehicle air pollution emission standards", "code": "I_Efficiencystd"}, {"label": "Fuel quality improvements", "code": "I_Fuelqualimprove"}, {"label": "Inspection and maintenance", "code": "I_Inspection"}, {"label": "Vehicle efficiency standards", "code": "I_Vehicleeff"}, {"label": "General vehicle improvement measures", "code": "I_Vehicleimprove"}, {"label": "Vehicle restrictions (import, age, access, sale, taxation)", "code": "I_VehicleRestrictions"}, {"label": "Vehicle scrappage scheme", "code": "I_Vehiclescrappage"}]}]}, {"label": "Electrification", "code": "C_Electrification", "purposes": [{"label": "Promote electric mobility", "code": "P_Electric", "instruments": [{"label": "General e-mobility measures", "code": "I_Emobility"}, {"label": "EV charging infrastructure measures", "code": "I_EVcharging"}, {"label": "EV purchase incentives", "code": "I_EVpurchase"}, {"label": "Smart charging policies", "code": "I_Smartcharging"}, {"label": "General micromobility", "code": "S_Micromobility"}]}]}, {"label": "Alternative fuels", "code": "C_Fuels", "purposes": [{"label": "Promote alternative fuels", "code": "P_Altfuel", "instruments": [{"label": "General alternative fuels measures", "code": "I_Altfuels"}, {"label": "Low emission vehicle purchase incentives", "code": "I_Lowemissionincentive"}, {"label": "Biofuels support measures", "code": "I_Biofuel"}, {"label": "Hydrogen support measures", "code": "I_Hydrogen"}, {"label": "LPG/CNG/LNG support measures", "code": "I_LPGCNGLNG"}, {"label": "General renewable energy support measures", "code": "I_RE"}]}]}, {"label": "Aviation and maritime", "code": "C_Innovation", "purposes": [{"label": "Promote improvements in aviation", "code": "P_Aviation", "instruments": [{"label": "Aircraft fleet renovation", "code": "I_Aircraftfleet"}, {"label": "Air traffic management", "code": "I_Airtraffic"}, {"label": "General aviation improvements", "code": "I_Aviation"}, {"label": "Airport CO2 certification", "code": "I_CO2certificate"}, {"label": "Jet fuel policies", "code": "I_Jetfuel"}]}, {"label": "Promote improvements in shipping", "code": "P_Shipping", "instruments": [{"label": "Support on-shore power and electric charging facilities in ports", "code": "I_Onshorepower"}, {"label": "Port infrastructure improvements", "code": "I_PortInfra"}, {"label": "Ship efficiency improvements", "code": "I_Shipefficiency"}, {"label": "General shipping improvement", "code": "I_Shipping"}]}]}], "adaptation": [{"label": "Structural and Technical", "code": "A_TECH", "measures": [{"label": "Transport Infrastructure Resilience", "code": "R_Infrares"}, {"label": "Transport System Adaptation", "code": "R_System"}, {"label": "Risk assessment", "code": "R_Risk"}, {"label": "Resilient transport technologies", "code": "R_Tech"}, {"label": "Repair and maintenance", "code": "R_Maintain"}]}, {"label": "Informational and Educational", "code": "A_INFO", "measures": [{"label": "Monitoring", "code": "R_Monitoring"}, {"label": "Education and Training", "code": "R_Education"}, {"label": "Early warning & emergency planning", "code": "R_Emergency"}]}, {"label": "Institutional and Regulatory", "code": "A_REG", "measures": [{"label": "Transport Planning", "code": "R_Planning"}, {"label": "Relocation", "code": "R_Relocation"}, {"label": "Redundancy", "code": "R_Redundancy"}, {"label": "Transport adaptation regulation", "code": "R_Laws"}, {"label": "Design Standards and updates", "code": "R_Design"}]}, {"label": "Other adaptation and resilience measures", "code": "A_OTHER", "measures": [{"label": "Other adaptation measures", "code": "R_Other"}]}], "targets": {"area": [{"label": "Net zero target", "code": "T_Netzero"}, {"label": "Overall mitigation target", "code": "T_Economy"}, {"label": "Transport sector mitigation target", "code": "T_Transport"}, {"label": "Transport sector adaptation target", "code": "T_Adaptation"}, {"label": "Energy sector target", "code": "T_Energy"}], "scope": [{"label": "Overall mitigation target", "code": "T_ALL_E"}, {"label": "Sector-wide", "code": "T_ALL_S"}, {"label": "Subsector targets", "code": "T_SUB_S"}, {"label": "Unclear scope", "code": "T_UNCL"}], "ghg": [{"label": "GHG", "code": "T_GHG"}, {"label": "Non-GHG", "code": "T_NONGHG"}], "type": [{"label": "GHG: Base year", "code": "T_BYE"}, {"label": "GHG: BAU", "code": "T_BAU"}, {"label": "GHG: Fixed level", "code": "T_FL"}, {"label": "GHG: Base year intensity", "code": "T_BYI"}, {"label": "GHG: Trajectory", "code": "T_TRA"}, {"label": "Other GHG targets", "code": "T_Other"}, {"label": "Renewable energy", "code": "T_E_REN"}, {"label": "Other non-GHG energy targets", "code": "T_E_ENERGY"}, {"label": "Avoid targets", "code": "T_O_AVOID"}, {"label": "Mode share targets", "code": "T_O_MODE"}, {"label": "Infrastructure targets", "code": "T_O_INFRA"}, {"label": "Vehicle efficiency targets", "code": "T_O_EFF"}, {"label": "Zero emission vehicle targets", "code": "T_O_ZERO"}, {"label": "Biofuel targets", "code": "T_O_BIO"}, {"label": "Renewable energy in transport targets", "code": "T_O_REN"}, {"label": "Non-national transport GHG mitigation target", "code": "T_O_SUBGHG"}, {"label": "Other non-GHG transport targets", "code": "T_O_Other"}, {"label": "General adaptation targets", "code": "T_A_GEN"}], "conditionality": [{"label": "Unconditional", "code": "T_Unconditional"}, {"label": "Conditional", "code": "T_Conditional"}, {"label": "Unclear conditionality", "code": "T_Unclear"}], "ice": [{"label": "Sales all vehicles", "code": "ICE_SALES_ALL"}, {"label": "Sales cars", "code": "ICE_SALES_CAR"}, {"label": "Sales public transport", "code": "ICE_SALES_PT"}, {"label": "Sales unclear scope", "code": "ICE_SALES_U"}, {"label": "Fleet all vehicles", "code": "ICE_FLEET_ALL"}, {"label": "Fleet cars", "code": "ICE_FLEET_CAR"}, {"label": "Fleet public transport", "code": "ICE_FLEET_PT"}, {"label": "Fleet unclear scope", "code": "ICE_FLEET_U"}, {"label": "Other ICE phase-out targets", "code": "ICE_OTHER"}]}, "benefits": [{"label": "Air pollution reduction", "code": "B_Airpollution"}, {"label": "Congestion reduction", "code": "B_Congestion"}, {"label": "Better social inclusion", "code": "B_Social"}, {"label": "Health Benefits", "code": "B_Health"}, {"label": "Improved accessibility", "code": "B_Access"}, {"label": "Road safety improvements", "code": "B_Safety"}, {"label": "SDG referenced in NDC transport measures", "code": "B_SDG"}, {"label": "Economic benefits", "code": "B_Econ"}], "mode": [{"label": "Mode: Not defined"}, {"label": "Informal transport"}, {"label": "Active mobility", "children": ["Walking", "Cycling"]}, {"label": "Road", "children": ["Two-/Three-wheelers", "Cars", "Private cars", "Taxis", "Truck", "Bus"]}, {"label": "Rail", "children": ["Heavy rail", "High-speed rail", "Transit rail"]}, {"label": "Water", "children": ["Coastal shipping", "Inland shipping", "International maritime"]}, {"label": "Aviation", "children": ["Domestic aviation", "International aviation"]}], "geography": [{"label": "Geography: Not defined"}, {"label": "Urban"}, {"label": "Rural"}, {"label": "Inter-city"}], "activity": [{"label": "Not defined", "code": "E_Notdefined", "definition": "Measures where it it not clear whether the focus is on the transport of people or of goods"}, {"label": "Passenger transport", "code": "E_Passenger", "definition": "Measures targeting the transport of persons."}, {"label": "Freight", "code": "E_Freight", "definition": "Measures targeting the transport of goods"}, {"label": "Both passenger and freight", "code": "E_Passenger&Freight", "definition": "Measures targeting the transport of people and of goods."}], "asi": [{"label": "Avoid", "definition": null}, {"label": "Shift", "definition": null}, {"label": "Improve", "definition": null}, {"label": "Avoid, shift", "definition": null}, {"label": "Avoid, improve", "definition": null}, {"label": "Shift, improve", "definition": null}, {"label": "Avoid, shift, improve", "definition": null}], "status_of_measure": [{"label": "Implemented or adopted", "code": "S_Implemented", "definition": "Added"}, {"label": "Planned", "code": "S_Planned", "definition": "Added"}, {"label": "Unclear", "code": "S_Unclear", "definition": "Added"}]};
+const SAMPLE = {"meta": {"documentId": "", "country": "Cameroon", "countryCode": "CMR", "typeOfDocument": "NDC", "documentName": "Third Generation NDC", "versionNumber": "NDC 3.0", "status": "Active", "date": "2025-10", "region": "Africa", "language": "fr", "generationNote": "Submitted Oct 2025 — classified 3rd generation per tracker rule (any submission since Nov 2024), regardless of document title."}, "rows": [{"domain": "target", "lang": "fr", "page": "5", "verbatim": "réduire ses émissions de GES à hauteur de 38 % soit 13% inconditionnel ... (avec une réduction de 45101.69 Gg CO₂eq par rapport au BAU) d'ici 2030", "translation": "Reduce GHG emissions by 38%, of which 13% unconditional (45,101.69 Gg CO₂eq below BAU) by 2030", "fields": {"area": "Overall mitigation target", "scope": "Overall mitigation target", "ghg": "GHG", "type": "GHG: BAU", "conditionality": "Unconditional", "targetYear": "2030"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r1"}, {"domain": "target", "lang": "fr", "page": "5", "verbatim": "réduire ses émissions de GES à hauteur de 38 % soit ... 25% conditionnel (avec une réduction de 45101.69 Gg CO₂eq par rapport au BAU) d'ici 2030", "translation": "Reduce GHG emissions by 38%, of which 25% conditional (45,101.69 Gg CO₂eq below BAU) by 2030", "fields": {"area": "Overall mitigation target", "scope": "Overall mitigation target", "ghg": "GHG", "type": "GHG: BAU", "conditionality": "Conditional", "targetYear": "2030"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r2"}, {"domain": "target", "lang": "fr", "page": "5", "verbatim": "41% soit 14% inconditionnel ... ( avec une réduction de 63157.46 Gg CO₂eq par rapport au BAU) d'ici 2035", "translation": "41%, of which 14% unconditional (63,157.46 Gg CO₂eq below BAU) by 2035", "fields": {"area": "Overall mitigation target", "scope": "Overall mitigation target", "ghg": "GHG", "type": "GHG: BAU", "conditionality": "Unconditional", "targetYear": "2035"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r3"}, {"domain": "target", "lang": "fr", "page": "5", "verbatim": "41% soit ... 27% conditionnel ( avec une réduction de 63157.46 Gg CO₂eq par rapport au BAU) d'ici 2035", "translation": "41%, of which 27% conditional (63,157.46 Gg CO₂eq below BAU) by 2035", "fields": {"area": "Overall mitigation target", "scope": "Overall mitigation target", "ghg": "GHG", "type": "GHG: BAU", "conditionality": "Conditional", "targetYear": "2035"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r4"}, {"domain": "target", "lang": "fr", "page": "17", "verbatim": "Porter à 25 % la part des énergies renouvelables hors grande hydro dans le bouquet électrique en 2035", "translation": "Raise renewables (excluding large hydro) to 25% of the electricity mix by 2035", "fields": {"area": "Energy sector target", "scope": "Sector-wide", "ghg": "Non-GHG", "type": "Renewable energy", "conditionality": "Unclear conditionality", "targetYear": "2035"}, "confirmed": false, "flagged": false, "note": "Conditionality set to Unclear per database convention — energy targets only carry conditionality if the target statement itself declares it.", "source": "claude", "id": "r5"}, {"domain": "target", "lang": "fr", "page": "17", "verbatim": "quadruplant la capacité de production à l'horizon 2035 pour passer à 6 GW", "translation": "Quadrupling generation capacity to reach 6 GW by 2035", "fields": {"area": "Energy sector target", "scope": "Sector-wide", "ghg": "Non-GHG", "type": "Other non-GHG energy targets", "conditionality": "Unclear conditionality", "targetYear": "2035"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r6"}, {"domain": "target", "lang": "fr", "page": "28", "verbatim": "la réalisation de ses objectifs de neutralité carbone et de résilience d'ici 2050", "translation": "achieving its carbon neutrality and resilience objectives by 2050", "fields": {"area": "Net zero target", "scope": "Overall mitigation target", "ghg": "Non-GHG", "type": "", "conditionality": "Unclear conditionality", "targetYear": "2050"}, "confirmed": false, "flagged": true, "note": "JUDGMENT CALL: descriptive aspiration about governance framework, not a formally declared economy-wide net-zero target. Country presents itself as a net carbon sink. Default = reject. Confirm only if you want it in.", "source": "claude", "id": "r7"}, {"domain": "mitigation", "lang": "fr", "page": "17", "verbatim": "Favorisation de l'achat de véhicules peu polluants", "translation": "Encouraging the purchase of low-polluting vehicles", "fields": {"category": "Alternative fuels", "purpose": "Promote alternative fuels", "instrument": "Low emission vehicle purchase incentives", "asi": "Improve", "mode": ["Cars"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": true, "note": "Split from a bundled sentence (incentives + scrappage). This is the incentives half. [category corrected: low-emission incentives sit under Alternative fuels per taxonomy]", "source": "claude", "id": "r8"}, {"domain": "mitigation", "lang": "fr", "page": "17", "verbatim": "mise au rebut des véhicules plus polluants via des normes, incitations ou obligations", "translation": "scrapping of more polluting vehicles via standards, incentives or obligations", "fields": {"category": "Energy efficiency", "purpose": "Promote vehicle improvements", "instrument": "Vehicle scrappage scheme", "asi": "Improve", "mode": ["Cars"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": true, "note": "Split from a bundled sentence (incentives + scrappage). This is the scrappage half.", "source": "claude", "id": "r9"}, {"domain": "mitigation", "lang": "fr", "page": "17", "verbatim": "Promotion des modes de transport à faible émission carbone", "translation": "Promotion of low-carbon transport modes", "fields": {"category": "Mode shift and demand management", "purpose": "Transport demand management", "instrument": "Transport demand management measures", "asi": "Shift", "mode": [], "geography": [], "activity": "Not defined", "status": "Planned"}, "confirmed": false, "flagged": true, "note": "Vague phrasing ('low-carbon modes'). Classified as general TDM. Consider dropping if too non-specific.", "source": "claude", "id": "r10"}, {"domain": "mitigation", "lang": "fr", "page": "17", "verbatim": "Services d'autobus Express", "translation": "Express bus services", "fields": {"category": "Mode shift and demand management", "purpose": "Public transport improvement", "instrument": "Express lanes/ public transport priority", "asi": "Shift", "mode": ["Bus"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r11"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Bus à Transite Rapide (BRT) ... 50 Km de linéaires ... 80 Km de linéaires", "translation": "Bus Rapid Transit (BRT) ... 50 km of lines ... 80 km of lines (Douala and Yaoundé)", "fields": {"category": "Mode shift and demand management", "purpose": "Public transport improvement", "instrument": "BRT", "asi": "Shift", "mode": ["Bus"], "geography": ["Urban"], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r12"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Substitution de voitures personnelles à énergies fossiles aux voitures électriques ... 500 véhicules électriques ... 900 véhicules électriques", "translation": "Replacement of fossil-fuel private cars with electric cars ... 500 EVs ... 900 EVs", "fields": {"category": "Electrification", "purpose": "Promote electric mobility", "instrument": "General e-mobility measures", "asi": "Improve", "mode": ["Private cars"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r13"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Mise en circulation des autobus électriques de 18 m ... 200 bus électriques ... 400 bus électriques", "translation": "Introduction of 18m electric buses ... 200 electric buses ... 400 electric buses", "fields": {"category": "Electrification", "purpose": "Promote electric mobility", "instrument": "General e-mobility measures", "asi": "Improve", "mode": ["Bus"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r14"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Substitution de transport individuel par le transport de massse (trains, covoiturage etc.) ... 2000 personnes par jour ... 3500 personnes par jour", "translation": "Replacement of individual transport with mass transit (trains, carpooling etc.) ... 2,000 persons/day ... 3,500 persons/day", "fields": {"category": "Mode shift and demand management", "purpose": "Transport demand management", "instrument": "Transport demand management measures", "asi": "Shift", "mode": ["Rail"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": true, "note": "Bundled (mass transit + carpooling). Duplicate this row for a shared-mobility classification if you want both.", "source": "claude", "id": "r15"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Mise en circulation des voitures fontionants au gaz naturel ... 500 ... 1000", "translation": "Introduction of natural-gas vehicles ... 500 ... 1,000", "fields": {"category": "Alternative fuels", "purpose": "Promote alternative fuels", "instrument": "LPG/CNG/LNG support measures", "asi": "Improve", "mode": ["Cars"], "geography": [], "activity": "Passenger transport", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r16"}, {"domain": "mitigation", "lang": "fr", "page": "23", "verbatim": "Construction d'une usine de production d'hydrogène et ammoniac", "translation": "Construction of a hydrogen and ammonia production plant (Kribi)", "fields": {"category": "Alternative fuels", "purpose": "Promote alternative fuels", "instrument": "Hydrogen support measures", "asi": "Improve", "mode": [], "geography": [], "activity": "Not defined", "status": "Planned"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r17"}, {"domain": "mitigation", "lang": "fr", "page": "38", "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain", "translation": "Establishment of a low-carbon multimodal transport system in urban areas", "fields": {"category": "Mode shift and demand management", "purpose": "Public transport improvement", "instrument": "Public transport integration and expansion", "asi": "Shift", "mode": [], "geography": ["Urban"], "activity": "Both passenger and freight", "status": "Planned"}, "confirmed": false, "flagged": true, "note": "Appears in the adaptation table but its stated co-benefit is transport GHG reduction. Twin of adaptation row A1 — kept in both per your instruction.", "source": "claude", "id": "r18"}, {"domain": "adaptation", "lang": "fr", "page": "38", "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain", "translation": "Establishment of a low-carbon multimodal transport system in urban areas", "fields": {"category": "Structural and Technical", "measure": "Transport System Adaptation", "mode": [], "geography": ["Urban"], "activity": "Both passenger and freight"}, "confirmed": false, "flagged": false, "note": "Twin of mitigation co-benefit row.", "source": "claude", "id": "r19"}, {"domain": "adaptation", "lang": "fr", "page": "38", "verbatim": "Construction des infrastructures résilientes au climat et renforcement de la résilience des systèmes et des corridors de transport nationaux, (régionaux, urbains et ruraux)", "translation": "Construction of climate-resilient infrastructure and strengthening the resilience of national (regional, urban and rural) transport systems and corridors", "fields": {"category": "Structural and Technical", "measure": "Transport Infrastructure Resilience", "mode": ["Road"], "geography": ["Urban", "Rural"], "activity": "Both passenger and freight"}, "confirmed": false, "flagged": false, "note": "", "source": "claude", "id": "r20"}, {"domain": "benefit", "lang": "fr", "page": "38", "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain (Co-Bénéfices: Réduction des GES du secteur des transports)", "translation": "Low-carbon multimodal urban transport system (co-benefit: reduction of transport-sector GHG)", "fields": {"benefit": "Air pollution reduction"}, "confirmed": false, "flagged": true, "note": "Co-benefit is framed as transport GHG reduction; closest benefit tag is air pollution. Review.", "source": "claude", "id": "r21"}]};
+
+const DOMAINS = [
+  {key:"target", label:"Targets"},
+  {key:"mitigation", label:"Mitigation"},
+  {key:"adaptation", label:"Adaptation"},
+  {key:"benefit", label:"Benefits"},
+];
+const META_FIELDS = [
+  ["documentId","Document ID"],["country","Country"],["countryCode","Country code"],
+  ["typeOfDocument","Type of document"],["documentName","Document name"],
+  ["versionNumber","Version number"],["status","Status"],["date","Date"],
+  ["region","Region"],["language","Language"],
+];
+
+let state = {meta:{}, rows:[]};
+let activeTab = "target";
+
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800);}
+function uid(){return "r"+Math.random().toString(36).slice(2,9);}
+function opt(list, val){
+  return '<option value=""></option>'+list.map(o=>{
+    const lab = typeof o==="string"?o:o.label;
+    const sel = lab===val?" selected":"";
+    return `<option${sel}>${esc(lab)}</option>`;
+  }).join("");
+}
+function esc(s){return (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+function purposesFor(catLabel){const c=TAX.mitigation.find(c=>c.label===catLabel);return c?c.purposes:[];}
+function instrumentsFor(catLabel,purpLabel){const ps=purposesFor(catLabel);const p=ps.find(p=>p.label===purpLabel);return p?p.instruments:[];}
+function measuresFor(catLabel){const c=TAX.adaptation.find(c=>c.label===catLabel);return c?c.measures:[];}
+
+function multiBox(rowId, field, values, selected){
+  selected = selected||[];
+  let h='<div class="multi">';
+  values.forEach(v=>{
+    const lab=v.label;
+    const checked=selected.includes(lab)?"checked":"";
+    h+=`<label class="parent"><input type="checkbox" data-row="${rowId}" data-field="${field}" value="${esc(lab)}" ${checked}>${esc(lab)}</label>`;
+    (v.children||[]).forEach(ch=>{
+      const c2=selected.includes(ch)?"checked":"";
+      h+=`<label class="child"><input type="checkbox" data-row="${rowId}" data-field="${field}" value="${esc(ch)}" ${c2}>${esc(ch)}</label>`;
+    });
+  });
+  return h+'</div>';
+}
+
+function fieldsHtml(r){
+  const f=r.fields||{};
+  if(r.domain==="target"){
+    return `
+    <div class="f"><label>Target area</label><select data-row="${r.id}" data-field="area">${opt(TAX.targets.area,f.area)}</select></div>
+    <div class="f"><label>Target scope</label><select data-row="${r.id}" data-field="scope">${opt(TAX.targets.scope,f.scope)}</select></div>
+    <div class="f"><label>GHG target?</label><select data-row="${r.id}" data-field="ghg">${opt(TAX.targets.ghg,f.ghg)}</select></div>
+    <div class="f"><label>Target type</label><select data-row="${r.id}" data-field="type">${opt(TAX.targets.type,f.type)}</select></div>
+    <div class="f"><label>Conditionality</label><select data-row="${r.id}" data-field="conditionality">${opt(TAX.targets.conditionality,f.conditionality)}</select></div>
+    <div class="f"><label>Target year</label><input type="text" data-row="${r.id}" data-field="targetYear" value="${esc(f.targetYear)}"></div>
+    <div class="f"><label>ICE phase-out type</label><select data-row="${r.id}" data-field="ice">${opt(TAX.targets.ice,f.ice)}</select></div>`;
+  }
+  if(r.domain==="mitigation"){
+    const ps=purposesFor(f.category);
+    const ins=instrumentsFor(f.category,f.purpose);
+    return `
+    <div class="f"><label>Category</label><select data-row="${r.id}" data-field="category" data-cascade="mit-cat">${opt(TAX.mitigation,f.category)}</select></div>
+    <div class="f"><label>Purpose</label><select data-row="${r.id}" data-field="purpose" data-cascade="mit-purp">${opt(ps,f.purpose)}</select></div>
+    <div class="f"><label>Instrument</label><select data-row="${r.id}" data-field="instrument">${opt(ins,f.instrument)}</select></div>
+    <div class="f"><label>A-S-I</label><select data-row="${r.id}" data-field="asi">${opt(TAX.asi,f.asi)}</select></div>
+    <div class="f"><label>Activity</label><select data-row="${r.id}" data-field="activity">${opt(TAX.activity,f.activity)}</select></div>
+    <div class="f"><label>Status of measure</label><select data-row="${r.id}" data-field="status">${opt(TAX.status_of_measure,f.status)}</select></div>
+    <div class="f"><label>Mode(s)</label>${multiBox(r.id,"mode",TAX.mode,f.mode)}</div>
+    <div class="f"><label>Geography</label>${multiBox(r.id,"geography",TAX.geography,f.geography)}</div>`;
+  }
+  if(r.domain==="adaptation"){
+    const ms=measuresFor(f.category);
+    return `
+    <div class="f"><label>Category</label><select data-row="${r.id}" data-field="category" data-cascade="ada-cat">${opt(TAX.adaptation,f.category)}</select></div>
+    <div class="f"><label>Measure</label><select data-row="${r.id}" data-field="measure">${opt(ms,f.measure)}</select></div>
+    <div class="f"><label>Activity</label><select data-row="${r.id}" data-field="activity">${opt(TAX.activity,f.activity)}</select></div>
+    <div class="f"><label>Mode(s)</label>${multiBox(r.id,"mode",TAX.mode,f.mode)}</div>
+    <div class="f"><label>Geography</label>${multiBox(r.id,"geography",TAX.geography,f.geography)}</div>`;
+  }
+  if(r.domain==="benefit"){
+    return `<div class="f"><label>Type of benefit</label><select data-row="${r.id}" data-field="benefit">${opt(TAX.benefits,f.benefit)}</select></div>`;
+  }
+  return "";
+}
+
+function rowCard(r){
+  const cls=["rowcard"]; if(r.flagged)cls.push("flagged"); if(r.confirmed)cls.push("confirmed");
+  return `<div class="${cls.join(' ')}" data-rowcard="${r.id}">
+    <div class="rowhead">
+      <span class="pill dom">${esc(DOMAINS.find(d=>d.key===r.domain).label)}</span>
+      ${r.confirmed?'<span class="pill ok">confirmed</span>':''}
+      ${r.flagged?'<span class="pill flag">flagged</span>':''}
+      <span class="pill src">${esc(r.source||"claude")}</span>
+      <span class="page">p.${esc(r.page||"?")}</span>
+    </div>
+    <div class="quotes">
+      <div class="qbox"><label>Verbatim (${esc(r.lang||"?")}) — exported</label><div class="verb">${esc(r.verbatim)}</div></div>
+      <div class="qbox"><label>Translation (EN) — validation only</label><div class="trans">${esc(r.translation)}</div></div>
+    </div>
+    <div class="fields">${fieldsHtml(r)}</div>
+    ${r.note?`<div class="note"><b>Note:</b> ${esc(r.note)}</div>`:''}
+    <div class="rowfoot">
+      <button class="btn" data-act="confirm" data-row="${r.id}">${r.confirmed?'Unconfirm':'Confirm'}</button>
+      <button class="btn" data-act="duplicate" data-row="${r.id}">Duplicate for 2nd classification</button>
+      <button class="btn" data-act="flag" data-row="${r.id}">${r.flagged?'Unflag':'Flag'}</button>
+      <button class="btn danger right" data-act="delete" data-row="${r.id}">Delete</button>
+    </div>
+  </div>`;
+}
+
+function render(){
+  // meta
+  const mg=document.getElementById("metaGrid");
+  mg.innerHTML=META_FIELDS.map(([k,lab])=>`<div><label>${lab}</label><input type="text" data-meta="${k}" value="${esc(state.meta[k]||"")}"></div>`).join("");
+  document.getElementById("genNote").textContent = state.meta.generationNote||"";
+  // tabs
+  document.getElementById("tabs").innerHTML=DOMAINS.map(d=>{
+    const n=state.rows.filter(r=>r.domain===d.key).length;
+    return `<div class="tab ${d.key===activeTab?'active':''}" data-tab="${d.key}">${d.label}<span class="count">${n}</span></div>`;
+  }).join("");
+  // summary
+  const total=state.rows.length, conf=state.rows.filter(r=>r.confirmed).length, flag=state.rows.filter(r=>r.flagged).length;
+  document.getElementById("summary").innerHTML=`<span><b>${total}</b> rows</span><span><b>${conf}</b> confirmed</span><span><b>${flag}</b> flagged</span><span><b>${total-conf}</b> pending</span>`;
+  // rows
+  const rs=state.rows.filter(r=>r.domain===activeTab);
+  document.getElementById("rows").innerHTML = rs.length? rs.map(rowCard).join("") : '<div class="empty">No rows in this category.</div>';
+}
+
+function findRow(id){return state.rows.find(r=>r.id===id);}
+
+document.addEventListener("change",e=>{
+  const el=e.target;
+  if(el.dataset.meta!==undefined){state.meta[el.dataset.meta]=el.value;return;}
+  if(el.type==="checkbox" && el.dataset.row){
+    const r=findRow(el.dataset.row); const fld=el.dataset.field;
+    r.fields[fld]=r.fields[fld]||[];
+    if(el.checked){if(!r.fields[fld].includes(el.value))r.fields[fld].push(el.value);}
+    else{r.fields[fld]=r.fields[fld].filter(v=>v!==el.value);}
+    return;
+  }
+  if(el.dataset.row){
+    const r=findRow(el.dataset.row);
+    r.fields[el.dataset.field]=el.value;
+    if(el.dataset.cascade==="mit-cat"){r.fields.purpose="";r.fields.instrument="";render();}
+    if(el.dataset.cascade==="mit-purp"){r.fields.instrument="";render();}
+    if(el.dataset.cascade==="ada-cat"){r.fields.measure="";render();}
+  }
+});
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-tab]");
+  if(t){activeTab=t.dataset.tab;render();return;}
+  const b=e.target.closest("[data-act]");
+  if(b){
+    const r=findRow(b.dataset.row);
+    if(b.dataset.act==="confirm"){r.confirmed=!r.confirmed;}
+    if(b.dataset.act==="flag"){r.flagged=!r.flagged;}
+    if(b.dataset.act==="delete"){state.rows=state.rows.filter(x=>x.id!==r.id);}
+    if(b.dataset.act==="duplicate"){
+      const copy=JSON.parse(JSON.stringify(r));copy.id=uid();copy.confirmed=false;
+      copy.note=(copy.note?copy.note+" ":"")+"[duplicate — assign a different classification]";copy.flagged=true;
+      const idx=state.rows.indexOf(r);state.rows.splice(idx+1,0,copy);
+    }
+    render();
+  }
+});
+
+function loadDoc(doc){
+  state.meta=doc.meta||{};
+  state.rows=(doc.rows||[]).map(r=>{r.id=r.id||uid();r.fields=r.fields||{};return r;});
+  document.getElementById("metaPanel").style.display="";
+  document.getElementById("board").style.display="";
+  render();
+}
+
+document.getElementById("parseBtn").onclick=()=>{
+  try{const doc=JSON.parse(document.getElementById("jsonIn").value);loadDoc(doc);toast("Parsed "+state.rows.length+" rows");}
+  catch(err){toast("Invalid JSON: "+err.message);}
+};
+document.getElementById("loadSample").onclick=()=>{loadDoc(JSON.parse(JSON.stringify(SAMPLE)));toast("Sample loaded");};
+document.getElementById("importBtn").onclick=()=>document.getElementById("fileIn").click();
+document.getElementById("fileIn").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;const rd=new FileReader();
+  rd.onload=()=>{try{loadDoc(JSON.parse(rd.result));toast("Imported");}catch(err){toast("Invalid file");}};rd.readAsText(f);
+};
+document.getElementById("saveDraft").onclick=()=>{
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download=(state.meta.countryCode||"draft")+"_validation_draft.json";a.click();toast("Draft saved");
+};
+
+// ---------- EXPORT ----------
+function metaCols(){
+  const m=state.meta;
+  return {
+    "Document ID":m.documentId||"", "Country Code":m.countryCode||"", "Country":m.country||"",
+    "Type of Document":m.typeOfDocument||"", "Document name":m.documentName||"",
+    "Version number":m.versionNumber||"", "Status":m.status||"", "Date":m.date||"",
+  };
+}
+function modeCols(sel){
+  sel=sel||[];
+  const all=["Mode: Not defined","Informal transport","Active mobility","Walking","Cycling","Road","Two-/Three-wheelers","Cars","Private cars","Taxis","Truck","Bus","Rail","Heavy rail","High-speed rail","Transit rail","Water","Coastal shipping","Inland shipping","International maritime","Aviation","Domestic aviation","International aviation"];
+  const o={};all.forEach(c=>o[c]=sel.includes(c)?"x":"");return o;
+}
+function geoCols(sel){
+  sel=sel||[];const all=["Geography: Not defined","Urban","Rural","Inter-city"];
+  const o={};all.forEach(c=>o[c]=sel.includes(c)?"x":"");return o;
+}
+function exportXlsx(){
+  if(!state.rows.length){toast("Nothing to export");return;}
+  const wb=XLSX.utils.book_new();
+  const M=metaCols();
+  // Targets
+  const tg=state.rows.filter(r=>r.domain==="target").map(r=>({
+    ...M,"Target area":r.fields.area||"","Target scope":r.fields.scope||"","GHG target?":r.fields.ghg||"",
+    "Target type":r.fields.type||"","Conditionality":r.fields.conditionality||"","Target Year":r.fields.targetYear||"",
+    "ICE phase-out":r.fields.ice||"","Content":r.verbatim||"","Page Number":r.page||"",
+    "Translation (EN)":r.translation||"","Validated":r.confirmed?"yes":"","Flag note":r.flagged?(r.note||"flagged"):""
+  }));
+  // Mitigation
+  const mit=state.rows.filter(r=>r.domain==="mitigation").map(r=>({
+    ...M,"Region":state.meta.region||"","Category":r.fields.category||"","Purpose":r.fields.purpose||"",
+    "Instrument":r.fields.instrument||"","Quote":r.verbatim||"","A-S-I":r.fields.asi||"","Page Number":r.page||"",
+    ...modeCols(r.fields.mode),...geoCols(r.fields.geography),
+    "Activity type":r.fields.activity||"","Status of measure":r.fields.status||"",
+    "Translation (EN)":r.translation||"","Validated":r.confirmed?"yes":"","Flag note":r.flagged?(r.note||"flagged"):""
+  }));
+  // Adaptation
+  const ada=state.rows.filter(r=>r.domain==="adaptation").map(r=>({
+    ...M,"Category":r.fields.category||"","Measure":r.fields.measure||"","Quote":r.verbatim||"","Page Number":r.page||"",
+    ...modeCols(r.fields.mode),...geoCols(r.fields.geography),"Activity type":r.fields.activity||"",
+    "Translation (EN)":r.translation||"","Validated":r.confirmed?"yes":"","Flag note":r.flagged?(r.note||"flagged"):""
+  }));
+  // Benefits
+  const ben=state.rows.filter(r=>r.domain==="benefit").map(r=>({
+    ...M,"Type of benefit":r.fields.benefit||"","Quote":r.verbatim||"","Page Number":r.page||"",
+    "Translation (EN)":r.translation||"","Validated":r.confirmed?"yes":"","Flag note":r.flagged?(r.note||"flagged"):""
+  }));
+  const add=(name,rows)=>{if(rows.length)XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),name);};
+  add("Targets",tg);add("Mitigation",mit);add("Adaptation",ada);add("Benefits",ben);
+  if(!wb.SheetNames.length){toast("Nothing to export");return;}
+  XLSX.writeFile(wb,(state.meta.countryCode||"NDC")+"_transport_tracker.xlsx");
+  toast("Excel exported");
+}
+document.getElementById("exportBtn").onclick=exportXlsx;
+</script>
+</body>
+</html>

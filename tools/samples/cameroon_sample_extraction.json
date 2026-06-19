@@ -1,0 +1,479 @@
+{
+  "meta": {
+    "documentId": "",
+    "country": "Cameroon",
+    "countryCode": "CMR",
+    "typeOfDocument": "NDC",
+    "documentName": "Third Generation NDC",
+    "versionNumber": "NDC 3.0",
+    "status": "Active",
+    "date": "2025-10",
+    "region": "Africa",
+    "language": "fr",
+    "generationNote": "Submitted Oct 2025 — classified 3rd generation per tracker rule (any submission since Nov 2024), regardless of document title."
+  },
+  "rows": [
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "5",
+      "verbatim": "réduire ses émissions de GES à hauteur de 38 % soit 13% inconditionnel ... (avec une réduction de 45101.69 Gg CO₂eq par rapport au BAU) d'ici 2030",
+      "translation": "Reduce GHG emissions by 38%, of which 13% unconditional (45,101.69 Gg CO₂eq below BAU) by 2030",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unconditional",
+        "targetYear": "2030"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r1"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "5",
+      "verbatim": "réduire ses émissions de GES à hauteur de 38 % soit ... 25% conditionnel (avec une réduction de 45101.69 Gg CO₂eq par rapport au BAU) d'ici 2030",
+      "translation": "Reduce GHG emissions by 38%, of which 25% conditional (45,101.69 Gg CO₂eq below BAU) by 2030",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Conditional",
+        "targetYear": "2030"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r2"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "5",
+      "verbatim": "41% soit 14% inconditionnel ... ( avec une réduction de 63157.46 Gg CO₂eq par rapport au BAU) d'ici 2035",
+      "translation": "41%, of which 14% unconditional (63,157.46 Gg CO₂eq below BAU) by 2035",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unconditional",
+        "targetYear": "2035"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r3"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "5",
+      "verbatim": "41% soit ... 27% conditionnel ( avec une réduction de 63157.46 Gg CO₂eq par rapport au BAU) d'ici 2035",
+      "translation": "41%, of which 27% conditional (63,157.46 Gg CO₂eq below BAU) by 2035",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Conditional",
+        "targetYear": "2035"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r4"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "Porter à 25 % la part des énergies renouvelables hors grande hydro dans le bouquet électrique en 2035",
+      "translation": "Raise renewables (excluding large hydro) to 25% of the electricity mix by 2035",
+      "fields": {
+        "area": "Energy sector target",
+        "scope": "Sector-wide",
+        "ghg": "Non-GHG",
+        "type": "Renewable energy",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2035"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "Conditionality set to Unclear per database convention — energy targets only carry conditionality if the target statement itself declares it.",
+      "source": "claude",
+      "id": "r5"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "quadruplant la capacité de production à l'horizon 2035 pour passer à 6 GW",
+      "translation": "Quadrupling generation capacity to reach 6 GW by 2035",
+      "fields": {
+        "area": "Energy sector target",
+        "scope": "Sector-wide",
+        "ghg": "Non-GHG",
+        "type": "Other non-GHG energy targets",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2035"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r6"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "28",
+      "verbatim": "la réalisation de ses objectifs de neutralité carbone et de résilience d'ici 2050",
+      "translation": "achieving its carbon neutrality and resilience objectives by 2050",
+      "fields": {
+        "area": "Net zero target",
+        "scope": "Overall mitigation target",
+        "ghg": "Non-GHG",
+        "type": "",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2050"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "JUDGMENT CALL: descriptive aspiration about governance framework, not a formally declared economy-wide net-zero target. Country presents itself as a net carbon sink. Default = reject. Confirm only if you want it in.",
+      "source": "claude",
+      "id": "r7"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "Favorisation de l'achat de véhicules peu polluants",
+      "translation": "Encouraging the purchase of low-polluting vehicles",
+      "fields": {
+        "category": "Alternative fuels",
+        "purpose": "Promote alternative fuels",
+        "instrument": "Low emission vehicle purchase incentives",
+        "asi": "Improve",
+        "mode": [
+          "Cars"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Split from a bundled sentence (incentives + scrappage). This is the incentives half. [category corrected: low-emission incentives sit under Alternative fuels per taxonomy]",
+      "source": "claude",
+      "id": "r8"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "mise au rebut des véhicules plus polluants via des normes, incitations ou obligations",
+      "translation": "scrapping of more polluting vehicles via standards, incentives or obligations",
+      "fields": {
+        "category": "Energy efficiency",
+        "purpose": "Promote vehicle improvements",
+        "instrument": "Vehicle scrappage scheme",
+        "asi": "Improve",
+        "mode": [
+          "Cars"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Split from a bundled sentence (incentives + scrappage). This is the scrappage half.",
+      "source": "claude",
+      "id": "r9"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "Promotion des modes de transport à faible émission carbone",
+      "translation": "Promotion of low-carbon transport modes",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Transport demand management",
+        "instrument": "Transport demand management measures",
+        "asi": "Shift",
+        "mode": [],
+        "geography": [],
+        "activity": "Not defined",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Vague phrasing ('low-carbon modes'). Classified as general TDM. Consider dropping if too non-specific.",
+      "source": "claude",
+      "id": "r10"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "17",
+      "verbatim": "Services d'autobus Express",
+      "translation": "Express bus services",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Express lanes/ public transport priority",
+        "asi": "Shift",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r11"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Bus à Transite Rapide (BRT) ... 50 Km de linéaires ... 80 Km de linéaires",
+      "translation": "Bus Rapid Transit (BRT) ... 50 km of lines ... 80 km of lines (Douala and Yaoundé)",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "BRT",
+        "asi": "Shift",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [
+          "Urban"
+        ],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r12"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Substitution de voitures personnelles à énergies fossiles aux voitures électriques ... 500 véhicules électriques ... 900 véhicules électriques",
+      "translation": "Replacement of fossil-fuel private cars with electric cars ... 500 EVs ... 900 EVs",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "mode": [
+          "Private cars"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r13"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Mise en circulation des autobus électriques de 18 m ... 200 bus électriques ... 400 bus électriques",
+      "translation": "Introduction of 18m electric buses ... 200 electric buses ... 400 electric buses",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r14"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Substitution de transport individuel par le transport de massse (trains, covoiturage etc.) ... 2000 personnes par jour ... 3500 personnes par jour",
+      "translation": "Replacement of individual transport with mass transit (trains, carpooling etc.) ... 2,000 persons/day ... 3,500 persons/day",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Transport demand management",
+        "instrument": "Transport demand management measures",
+        "asi": "Shift",
+        "mode": [
+          "Rail"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Bundled (mass transit + carpooling). Duplicate this row for a shared-mobility classification if you want both.",
+      "source": "claude",
+      "id": "r15"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Mise en circulation des voitures fontionants au gaz naturel ... 500 ... 1000",
+      "translation": "Introduction of natural-gas vehicles ... 500 ... 1,000",
+      "fields": {
+        "category": "Alternative fuels",
+        "purpose": "Promote alternative fuels",
+        "instrument": "LPG/CNG/LNG support measures",
+        "asi": "Improve",
+        "mode": [
+          "Cars"
+        ],
+        "geography": [],
+        "activity": "Passenger transport",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r16"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "23",
+      "verbatim": "Construction d'une usine de production d'hydrogène et ammoniac",
+      "translation": "Construction of a hydrogen and ammonia production plant (Kribi)",
+      "fields": {
+        "category": "Alternative fuels",
+        "purpose": "Promote alternative fuels",
+        "instrument": "Hydrogen support measures",
+        "asi": "Improve",
+        "mode": [],
+        "geography": [],
+        "activity": "Not defined",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r17"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "38",
+      "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain",
+      "translation": "Establishment of a low-carbon multimodal transport system in urban areas",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Public transport integration and expansion",
+        "asi": "Shift",
+        "mode": [],
+        "geography": [
+          "Urban"
+        ],
+        "activity": "Both passenger and freight",
+        "status": "Planned"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Appears in the adaptation table but its stated co-benefit is transport GHG reduction. Twin of adaptation row A1 — kept in both per your instruction.",
+      "source": "claude",
+      "id": "r18"
+    },
+    {
+      "domain": "adaptation",
+      "lang": "fr",
+      "page": "38",
+      "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain",
+      "translation": "Establishment of a low-carbon multimodal transport system in urban areas",
+      "fields": {
+        "category": "Structural and Technical",
+        "measure": "Transport System Adaptation",
+        "mode": [],
+        "geography": [
+          "Urban"
+        ],
+        "activity": "Both passenger and freight"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "Twin of mitigation co-benefit row.",
+      "source": "claude",
+      "id": "r19"
+    },
+    {
+      "domain": "adaptation",
+      "lang": "fr",
+      "page": "38",
+      "verbatim": "Construction des infrastructures résilientes au climat et renforcement de la résilience des systèmes et des corridors de transport nationaux, (régionaux, urbains et ruraux)",
+      "translation": "Construction of climate-resilient infrastructure and strengthening the resilience of national (regional, urban and rural) transport systems and corridors",
+      "fields": {
+        "category": "Structural and Technical",
+        "measure": "Transport Infrastructure Resilience",
+        "mode": [
+          "Road"
+        ],
+        "geography": [
+          "Urban",
+          "Rural"
+        ],
+        "activity": "Both passenger and freight"
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "",
+      "source": "claude",
+      "id": "r20"
+    },
+    {
+      "domain": "benefit",
+      "lang": "fr",
+      "page": "38",
+      "verbatim": "Mise en place d'un système de transport multimodal bas carbone en milieu urbain (Co-Bénéfices: Réduction des GES du secteur des transports)",
+      "translation": "Low-carbon multimodal urban transport system (co-benefit: reduction of transport-sector GHG)",
+      "fields": {
+        "benefit": "Air pollution reduction"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Co-benefit is framed as transport GHG reduction; closest benefit tag is air pollution. Review.",
+      "source": "claude",
+      "id": "r21"
+    }
+  ]
+}
