@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "documentId": "",
+    "country": "Dominican Republic",
+    "countryCode": "DOM",
+    "typeOfDocument": "NDC",
+    "documentName": "Contribución Nacionalmente Determinada 3.0 (NDC 3.0 RD-2025)",
+    "versionNumber": "NDC 3.0",
+    "status": "Active",
+    "date": "2025",
+    "region": "Latin America and the Caribbean",
+    "language": "es",
+    "generationNote": "Dominican Republic NDC 3.0 (2025). 3rd generation per tracker rule (submission since Nov 2024)."
+  },
+  "rows": [
+    {
+      "domain": "target",
+      "lang": "es",
+      "page": "14",
+      "verbatim": "reducir sus emisiones de gases de efecto invernadero (GEI) en un 28 % para 2030, equivalente a 14,732.1 kt CO₂ eq ... respecto al escenario de tendencia (BAU), tomando como referencia el año base 2022",
+      "translation": "Reduce GHG emissions by 28% by 2030 (14,732.1 kt CO2eq) relative to the BAU scenario, base year 2022",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unconditional",
+        "targetYear": "2030",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Economy-wide 28%/2030 splits into 8.5% unconditional + 19.5% conditional (p14/16). This is the UNCONDITIONAL share (8.5%). Verbatim trimmed; see twin row for conditional share.",
+      "source": "claude",
+      "id": "r1"
+    },
+    {
+      "domain": "target",
+      "lang": "es",
+      "page": "14",
+      "verbatim": "del compromiso de reducción de 28 %, un 8.5 % es no-condicionado, financiado con recursos nacionales y otras fuentes gestionadas por el país, y un 19.5 % condicionado",
+      "translation": "Of the 28% reduction commitment, 8.5% is unconditional (financed by national resources) and 19.5% is conditional",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Conditional",
+        "targetYear": "2030",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "CONDITIONAL share (19.5%) of the 28%/2030 economy-wide target. Twin of the unconditional row.",
+      "source": "claude",
+      "id": "r2"
+    },
+    {
+      "domain": "target",
+      "lang": "es",
+      "page": "14",
+      "verbatim": "y en un 32 % al 2035, equivalente a 18,349.32 kt CO₂ eq, respecto al escenario de tendencia (BAU), tomando como referencia el año base 2022",
+      "translation": "and by 32% by 2035 (18,349.32 kt CO2eq) relative to the BAU scenario, base year 2022",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "32%/2035 economy-wide target. The document states the 8.5/19.5 split explicitly for the 28%/2030 only; 2035 conditionality is not separately quantified -> Unclear. Confirm whether to also split 2035.",
+      "source": "claude",
+      "id": "r3"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "40",
+      "verbatim": "Nuevos corredores de autobuses con tecnologías más eficientes a nivel nacional",
+      "translation": "New bus corridors with more efficient technologies nationwide (Corredor Independencia & 27 de Febrero, Santo Domingo; 174 buses; ~22,925.66 t CO2eq/yr)",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Public transport integration and expansion",
+        "asi": "Shift",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 7. Detail p155: bus corridors with more efficient (still diesel) fleets, AMS-III.S methodology; also mentions initiating BRT studies and an electric corridor. Could be duplicated for a BRT-specific row if you want the BRT study captured separately.",
+      "source": "claude",
+      "id": "r4"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "40",
+      "verbatim": "Nuevas líneas de transporte masivo en grandes ciudades a través de líneas férreas",
+      "translation": "New mass-transit lines in large cities via rail (Santiago & Santo Domingo monorail; ~111,642 t CO2eq/yr avoided)",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Public transport integration and expansion",
+        "asi": "Shift",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Transit rail"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 8. Detail p156: Monorail Santiago (13.2 km) and Santo Domingo (10.5 km, links to Metro). ACM0016 mass rapid transit methodology. NOTE: taxonomy label is 'Public transit integration and expansion' — verify exact instrument label in console dropdown.",
+      "source": "claude",
+      "id": "r5"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "40",
+      "verbatim": "Nuevas líneas de transporte masivo en grandes ciudades a través del teleférico",
+      "translation": "New mass-transit lines in large cities via cableway/teleférico (km 9 Autopista Duarte to marginalized sectors; up to 4,500 passengers/hr/direction; ~11,343 t CO2eq/yr)",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Public transport integration and expansion",
+        "asi": "Shift",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Transit rail"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 9. Detail p157: cable car (teleférico), AMS-III.U Cable Cars for MRTS. Mode is ambiguous — cable car isn't cleanly 'rail'; consider 'Mode: Not defined' or transit rail. Flagged for mode decision.",
+      "source": "claude",
+      "id": "r6"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "41",
+      "verbatim": "Establecer programas para renovar y diseñar flotas de carga, incluyendo pilotos y estándares para nuevos modos de transportación",
+      "translation": "Establish programs to renew and design freight fleets, including pilots and standards for new transport modes (Fleet/Transport Management Systems pilot)",
+      "fields": {
+        "category": "Transport system improvements",
+        "purpose": "Freight efficiency improvements",
+        "instrument": "General freight efficiency improvements",
+        "asi": "Improve",
+        "activity": "Freight",
+        "status": "Planned",
+        "mode": [
+          "Truck"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 10. Detail p158: Fleet Management Systems (FMS) + Transport Management Systems (TMS) pilot. Enabling-framework/non-GHG. Verify exact freight instrument label.",
+      "source": "claude",
+      "id": "r7"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "41",
+      "verbatim": "Articulación y marcos regulatorios para la inspección técnica vehicular y la estrategia de chatarrización",
+      "translation": "Coordination and regulatory frameworks for vehicle technical inspection and the scrappage strategy",
+      "fields": {
+        "category": "Energy efficiency",
+        "purpose": "Promote vehicle improvements",
+        "instrument": "Inspection and maintenance",
+        "asi": "Improve",
+        "activity": "Both passenger and freight",
+        "status": "Planned",
+        "mode": [
+          "Cars",
+          "Truck"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 11. Bundled: vehicle technical inspection (ITV) + scrappage strategy. This is the INSPECTION half. Duplicate for the scrappage half (Vehicle scrappage scheme). Detail p159.",
+      "source": "claude",
+      "id": "r8"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "41",
+      "verbatim": "Articulación y marcos regulatorios para ... la estrategia de chatarrización",
+      "translation": "Coordination and regulatory frameworks for the scrappage strategy",
+      "fields": {
+        "category": "Energy efficiency",
+        "purpose": "Promote vehicle improvements",
+        "instrument": "Vehicle scrappage scheme",
+        "asi": "Improve",
+        "activity": "Both passenger and freight",
+        "status": "Planned",
+        "mode": [
+          "Cars",
+          "Truck"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 11 — SCRAPPAGE half (split from inspection). Twin of the inspection row.",
+      "source": "claude",
+      "id": "r9"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "41",
+      "verbatim": "Propuesta de incorporación del combustible sostenible de SAF y LCAF en la aviación doméstica dominicana",
+      "translation": "Proposal to incorporate sustainable aviation fuel (SAF) and LCAF in Dominican domestic aviation (~1,000 t CO2eq reduction)",
+      "fields": {
+        "category": "Aviation and maritime",
+        "purpose": "Promote improvements in aviation",
+        "instrument": "Jet fuel policies",
+        "asi": "Improve",
+        "activity": "Both passenger and freight",
+        "status": "Planned",
+        "mode": [
+          "Domestic aviation"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "PAM 12. Detail p160: SAF/LCAF mandate scheme, carbon credits, book-and-claim; sugarcane-based. Verify exact aviation instrument label (jet fuel policies vs general aviation).",
+      "source": "claude",
+      "id": "r10"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "es",
+      "page": "155",
+      "verbatim": "Iniciar el estudio para el corredor eléctrico en la Av. Ecológica",
+      "translation": "Initiate the study for the electric corridor on Av. Ecológica",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Sub-activity within PAM 7: electric bus corridor study. Captured separately as electrification; may be merged into PAM 7 if you prefer one row.",
+      "source": "claude",
+      "id": "r11"
+    },
+    {
+      "domain": "adaptation",
+      "lang": "es",
+      "page": "216",
+      "verbatim": "corredores de transporte público eficiente",
+      "translation": "efficient public transport corridors (listed among transport adaptation/resilience actions)",
+      "fields": {
+        "category": "Structural and Technical",
+        "measure": "Transport System Adaptation",
+        "activity": "Passenger transport",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "From the resilience/co-benefit narrative (p67, p185, p216): efficient bus corridors framed as a less climate-vulnerable mobility network. Borderline adaptation — primarily mitigation. Flagged: confirm whether DR records this as an adaptation row.",
+      "source": "claude",
+      "id": "r12"
+    },
+    {
+      "domain": "benefit",
+      "lang": "es",
+      "page": "185",
+      "verbatim": "Corredores de buses eficientes — Salud & calidad del aire: ↓ NOx/PM; Accesibilidad; tarifas justas",
+      "translation": "Efficient bus corridors — health & air quality co-benefit (lower NOx/PM); accessibility; fair fares",
+      "fields": {
+        "benefit": "Air pollution reduction"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Co-benefits annex (Anexo 3, p185) ties efficient bus corridors to air-quality (NOx/PM reduction). Also implies accessibility & social inclusion — duplicate if you want those benefit tags too.",
+      "source": "claude",
+      "id": "r13"
+    },
+    {
+      "domain": "benefit",
+      "lang": "es",
+      "page": "67",
+      "verbatim": "la integración territorial mediante teleféricos, monorrieles y corredores de buses mejora la accesibilidad a empleo y servicios en barrios periféricos",
+      "translation": "Territorial integration via cableways, monorails and bus corridors improves access to jobs and services in peripheral neighborhoods",
+      "fields": {
+        "benefit": "Improved accessibility"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "p67: explicit accessibility co-benefit of the mass-transit measures (teleférico, monorail, bus corridors). Could also tag 'Better social inclusion'.",
+      "source": "claude",
+      "id": "r14"
+    }
+  ]
+}

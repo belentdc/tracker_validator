@@ -223,17 +223,18 @@ function rowCard(r){
       ${r.confirmed?'<span class="pill ok">confirmed</span>':''}
       ${r.flagged?'<span class="pill flag">flagged</span>':''}
       <span class="pill src">${esc(r.source||"claude")}</span>
-      <span class="page">p.${esc(r.page||"?")}</span>
+      <span class="page">p.<input type="text" data-quote="page" data-row="${r.id}" value="${esc(r.page||"")}" style="width:54px;font-size:12px;padding:2px 5px"></span>
     </div>
     <div class="quotes">
-      <div class="qbox"><label>Verbatim (${esc(r.lang||"?")}) — exported</label><div class="verb">${esc(r.verbatim)}</div></div>
-      <div class="qbox"><label>Translation (EN) — validation only</label><div class="trans">${esc(r.translation)}</div></div>
+      <div class="qbox"><label>Verbatim (${esc(r.lang||"?")}) — exported · editable</label><textarea data-quote="verbatim" data-row="${r.id}">${esc(r.verbatim)}</textarea></div>
+      <div class="qbox"><label>Translation (EN) — validation only · editable</label><textarea data-quote="translation" data-row="${r.id}">${esc(r.translation)}</textarea></div>
     </div>
     <div class="fields">${fieldsHtml(r)}</div>
     ${r.note?`<div class="note"><b>Note:</b> ${esc(r.note)}</div>`:''}
     <div class="rowfoot">
       <button class="btn" data-act="confirm" data-row="${r.id}">${r.confirmed?'Unconfirm':'Confirm'}</button>
       <button class="btn" data-act="duplicate" data-row="${r.id}">Duplicate for 2nd classification</button>
+      <button class="btn" data-act="newentry" data-row="${r.id}">Duplicate as new entry</button>
       <button class="btn" data-act="flag" data-row="${r.id}">${r.flagged?'Unflag':'Flag'}</button>
       <button class="btn danger right" data-act="delete" data-row="${r.id}">Delete</button>
     </div>
@@ -255,7 +256,8 @@ function render(){
   document.getElementById("summary").innerHTML=`<span><b>${total}</b> rows</span><span><b>${conf}</b> confirmed</span><span><b>${flag}</b> flagged</span><span><b>${total-conf}</b> pending</span>`;
   // rows
   const rs=state.rows.filter(r=>r.domain===activeTab);
-  document.getElementById("rows").innerHTML = rs.length? rs.map(rowCard).join("") : '<div class="empty">No rows in this category.</div>';
+  const addBar='<div style="margin-bottom:12px"><button class="btn" data-act="addblank">+ Add blank '+DOMAINS.find(d=>d.key===activeTab).label.replace(/s$/,'').toLowerCase()+' row</button></div>';
+  document.getElementById("rows").innerHTML = addBar + (rs.length? rs.map(rowCard).join("") : '<div class="empty">No rows in this category yet — use “Add blank row”.</div>');
 }
 
 function findRow(id){return state.rows.find(r=>r.id===id);}
@@ -263,6 +265,9 @@ function findRow(id){return state.rows.find(r=>r.id===id);}
 document.addEventListener("change",e=>{
   const el=e.target;
   if(el.dataset.meta!==undefined){state.meta[el.dataset.meta]=el.value;return;}
+  if(el.dataset.quote!==undefined && el.dataset.row){
+    const r=findRow(el.dataset.row); r[el.dataset.quote]=el.value; return;
+  }
   if(el.type==="checkbox" && el.dataset.row){
     const r=findRow(el.dataset.row); const fld=el.dataset.field;
     r.fields[fld]=r.fields[fld]||[];
@@ -292,6 +297,16 @@ document.addEventListener("click",e=>{
       const copy=JSON.parse(JSON.stringify(r));copy.id=uid();copy.confirmed=false;
       copy.note=(copy.note?copy.note+" ":"")+"[duplicate — assign a different classification]";copy.flagged=true;
       const idx=state.rows.indexOf(r);state.rows.splice(idx+1,0,copy);
+    }
+    if(b.dataset.act==="newentry"){
+      const copy=JSON.parse(JSON.stringify(r));copy.id=uid();copy.confirmed=false;copy.flagged=false;
+      copy.note="[new entry — edit the quote and classification]";copy.source="manual";
+      const idx=state.rows.indexOf(r);state.rows.splice(idx+1,0,copy);
+    }
+    if(b.dataset.act==="addblank"){
+      state.rows.push({id:uid(),domain:activeTab,lang:(state.meta.language||""),page:"",
+        verbatim:"",translation:"",fields:{},confirmed:false,flagged:false,
+        note:"[manual entry]",source:"manual"});
     }
     render();
   }

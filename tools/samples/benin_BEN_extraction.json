@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "documentId": "",
+    "country": "Benin",
+    "countryCode": "BEN",
+    "typeOfDocument": "NDC",
+    "documentName": "Troisième Contribution Déterminée au niveau National du Bénin (CDN 3.0)",
+    "versionNumber": "NDC 3.0",
+    "status": "Active",
+    "date": "2026-04",
+    "region": "Africa",
+    "language": "fr",
+    "generationNote": "Benin CDN 3.0, April 2026. 3rd generation per tracker rule. Cumulative targets over 2026-2035, reference year 2018."
+  },
+  "rows": [
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "89",
+      "verbatim": "le pays s'engage à réduire ses émissions cumulées de gaz à effet de serre (hors secteur FAT) de 120,7 Mt E-CO₂, soit 32,8% par rapport au scénario de référence",
+      "translation": "Benin commits to reduce cumulative GHG emissions (excluding LULUCF) by 120.7 Mt CO2e, i.e. 32.8% vs the reference scenario (2026-2035, base year 2018)",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Headline economy-wide target EXCLUDING LULUCF: 32.8%. The unconditional share (26.5%) is stated for the FAT-INCLUDED figure; the document does not cleanly split the excl-LULUCF figure. Cumulative over 2026-2035. Decide whether to record the excl-FAT or incl-FAT figure (or both) per tracker convention.",
+      "source": "claude",
+      "id": "r1"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "89",
+      "verbatim": "L'engagement de réduction des émissions cumulées (secteur FAT compris) est de 590,8 Mt E-CO₂, soit 33,8% par rapport au scénario de référence, dont une contribution inconditionnelle de 26,5%",
+      "translation": "The cumulative reduction commitment including LULUCF is 590.8 Mt CO2e, i.e. 33.8% vs the reference scenario, of which an unconditional contribution of 26.5%",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Conditional",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Economy-wide target INCLUDING LULUCF: 33.8% total, of which 26.5% unconditional => the conditional portion is ~7.3%. This row = the full 33.8% (conditional+unconditional). Twin row holds the 26.5% unconditional share. Decide whether you record total-as-conditional or split.",
+      "source": "claude",
+      "id": "r2"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "93",
+      "verbatim": "Une réduction inconditionnelle escomptée du cumul des émissions de GES de 463,1 Mt E-CO2 (FAT inclus), soit 26,5% par rapport au scénario de référence sur la période 2026 – 2035",
+      "translation": "An expected unconditional reduction of cumulative GHG of 463.1 Mt CO2e (incl. LULUCF), i.e. 26.5% vs the reference scenario over 2026-2035",
+      "fields": {
+        "area": "Overall mitigation target",
+        "scope": "Overall mitigation target",
+        "ghg": "GHG",
+        "type": "GHG: BAU",
+        "conditionality": "Unconditional",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "UNCONDITIONAL share (26.5%, incl. LULUCF). Twin of the 33.8% total row.",
+      "source": "claude",
+      "id": "r3"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "réduire les émissions de GES dans le secteur de l'énergie de 47,5 Mt E-CO₂ sur la période 2026-2035, soit une réduction cumulée de 22,7% par rapport au scénario du maintien du statu quo. Cette réduction se décompose en 16,3% de contribution inconditionnelle et 6,4% de contribution conditionnelle",
+      "translation": "Reduce energy-sector GHG by 47.5 Mt CO2e over 2026-2035, a cumulative 22.7% reduction vs BAU, split into 16.3% unconditional and 6.4% conditional",
+      "fields": {
+        "area": "Energy sector target",
+        "scope": "Sector-wide",
+        "ghg": "GHG",
+        "type": "Other GHG targets",
+        "conditionality": "Unconditional",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "ENERGY-SECTOR GHG target: 22.7% cumulative, split 16.3% unconditional / 6.4% conditional. This row = the 16.3% unconditional share. Duplicate for the 6.4% conditional share. (This is a sector GHG target, not non-GHG — note the energy target here is expressed in CO2e.)",
+      "source": "claude",
+      "id": "r4"
+    },
+    {
+      "domain": "target",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Objectif 10 : Promotion de la mobilité routière électrique avec pour objectif 1% au moins de motos électrique en 2030 et 2% en 2035",
+      "translation": "Objective 10: Promote electric road mobility, targeting at least 1% electric motorcycles by 2030 and 2% by 2035",
+      "fields": {
+        "area": "Transport sector mitigation target",
+        "scope": "Subsector targets",
+        "ghg": "Non-GHG",
+        "type": "Zero emission vehicle targets",
+        "conditionality": "Unclear conditionality",
+        "targetYear": "2035",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "TRANSPORT-SPECIFIC non-GHG target: ≥1% electric motorcycles by 2030, 2% by 2035. ZEV target (two-wheelers). Verify the target-type label (Zero emission vehicle targets) and area in the console.",
+      "source": "claude",
+      "id": "r5"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Mesure 1 : Poursuite des activités de développement du marché par les sociétés de commercialisation des motos électriques",
+      "translation": "Measure 1: Continued market development by electric-motorcycle retail companies (Objective 10)",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "activity": "Passenger transport",
+        "status": "Implemented or adopted",
+        "mode": [
+          "Two-/Three-wheelers"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "Obj 10 Measure 1, Unconditional (I). Market development for electric motorcycles.",
+      "source": "claude",
+      "id": "r6"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Mesure 2 : Mise en œuvre d'un programme favorisant le déploiement d'une flotte de taxi-motos électriques et de facilitation de l'accès des particuliers aux motos électriques",
+      "translation": "Measure 2: Program to deploy an electric motorcycle-taxi fleet and facilitate private access to electric motorcycles (Grand Nokoué two-wheeler electrification)",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Two-/Three-wheelers",
+          "Taxis"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Obj 10 Measure 2, Conditional (C). E-moto-taxi fleet (zémidjan electrification) in Grand Nokoué. Mode: two-/three-wheelers + taxis. Could duplicate if you classify moto-taxi under a distinct instrument.",
+      "source": "claude",
+      "id": "r7"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Mesure 1 : Développement du transport routier en commun par bus ; Projet de mobilité durable dans le Grand Nokoué (volet transport en commun par bus)",
+      "translation": "Measure 1: Development of public bus transport; Grand Nokoué sustainable mobility project (public bus transport component)",
+      "fields": {
+        "category": "Mode shift and demand management",
+        "purpose": "Public transport improvement",
+        "instrument": "Public transport integration and expansion",
+        "asi": "Shift",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Bus"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "Obj 11 Measure 1, Conditional. Target indicator: % of public-transport vehicles in national fleet. Grand Nokoué (Cotonou conurbation).",
+      "source": "claude",
+      "id": "r8"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Mesure 2 : Développement du transport en commun par voie fluvio-lagunaire dans la région du Grand Nokoué ; Projet mobilité durable dans le Grand Nokoué : Composante transport fluvio-lagunaire",
+      "translation": "Measure 2: Development of public transport via the lagoon/river waterway in Grand Nokoué; waterbus deployment",
+      "fields": {
+        "category": "Aviation and maritime",
+        "purpose": "Promote improvements in shipping",
+        "instrument": "General shipping improvement",
+        "asi": "Shift",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Inland shipping"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Obj 11 Measure 2, Conditional. Lagoon/river public transport (bateaux-bus / waterbus). Classified under shipping>general shipping improvement, mode=inland shipping. But note: p139 lists 'Développement du transport lagunaire électrique' (ELECTRIC lagoon transport) — consider whether this is also an electrification measure (duplicate row) and/or a public-transport mode-shift. Flagged for that decision.",
+      "source": "claude",
+      "id": "r9"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "fr",
+      "page": "40",
+      "verbatim": "Mesure 1 : Mis en œuvre de différents projets de développement des infrastructures routières pour décongestionner la circulation dans le Grand Nokoué",
+      "translation": "Measure 1: Implementation of various road-infrastructure projects to decongest traffic in Grand Nokoué (RNIE1, RNIE2, green corridor, bridges, traffic management, etc.)",
+      "fields": {
+        "category": "Transport system improvements",
+        "purpose": "Enhance comprehensive transport planning",
+        "instrument": "Traffic management improvements",
+        "asi": "Improve",
+        "activity": "Both passenger and freight",
+        "status": "Planned",
+        "mode": [
+          "Road"
+        ],
+        "geography": [
+          "Urban"
+        ]
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Obj 12 Measure 1, Conditional. Road infrastructure to decongest traffic (incl. 'corridor vert', bridges, traffic management). Classified as traffic management improvements. Note: road expansion can increase emissions — flagged as a borderline 'green' classification; review ASI and whether this belongs as mitigation. p113 lists RNIE1/RNIE2/ATC, green corridor, bridges.",
+      "source": "claude",
+      "id": "r10"
+    },
+    {
+      "domain": "benefit",
+      "lang": "fr",
+      "page": "62",
+      "verbatim": "déploiement de vélos électriques et tricycles solaires accessibles aux femmes commerçantes ; promotion du transport public sécurisé pour les femmes",
+      "translation": "deployment of electric bikes and solar tricycles accessible to women traders; promotion of safe public transport for women",
+      "fields": {
+        "benefit": "Better social inclusion"
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Gender/inclusion co-benefit (p62): e-bikes & solar tricycles for women traders + safe public transport for women. Tagged social inclusion. Could also be its own mitigation rows (e-bike/solar tricycle = electrification/active mobility) — duplicate if you want the measure captured, not just the benefit.",
+      "source": "claude",
+      "id": "r11"
+    }
+  ]
+}

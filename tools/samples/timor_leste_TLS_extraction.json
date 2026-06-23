@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "documentId": "",
+    "country": "Timor-Leste",
+    "countryCode": "TLS",
+    "typeOfDocument": "NDC",
+    "documentName": "Timor-Leste Updated NDC 3.0 (Draft 0.06)",
+    "versionNumber": "NDC 3.0",
+    "status": "Active",
+    "date": "2026-01",
+    "region": "Asia",
+    "language": "en",
+    "generationNote": "Timor-Leste Updated NDC 3.0, draft dated 2026-01-16. 3rd generation per tracker rule. NOTE: this is a DRAFT (Draft 0.06) — confirm a final submitted version exists before entering into the database."
+  },
+  "rows": [
+    {
+      "domain": "target",
+      "lang": "en",
+      "page": "71",
+      "verbatim": "Timor-Leste intends to refrain from setting a quantified emissions reduction target at this stage",
+      "translation": "(same — document is in English)",
+      "fields": {
+        "area": "",
+        "scope": "",
+        "ghg": "",
+        "type": "",
+        "conditionality": "",
+        "targetYear": "",
+        "ice": ""
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "NO QUANTIFIED TARGET. Timor-Leste explicitly does not set an economy-wide or sectoral GHG reduction target (confirmed p37, p71, p87) — it is an action/policy-based NDC. This placeholder row is for your awareness; DELETE it before export (it is not a real target). No target rows should go to the database for this country.",
+      "source": "claude",
+      "id": "r1"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "en",
+      "page": "76",
+      "verbatim": "Timor-Leste adopted standards in Decree-Law No. 30/2011 that prohibits the import of light passenger and mixed vehicles that are more than 5 years old (from the date of their original manufacture to the date of import) ... This policy will be maintained to manage vehicle imports and revised as necessary in line with national climate policy objectives.",
+      "translation": "(English original)",
+      "fields": {
+        "category": "Energy efficiency",
+        "purpose": "Promote vehicle improvements",
+        "instrument": "Vehicle restrictions (import, age, access, sale, taxation)",
+        "asi": "Improve",
+        "activity": "Passenger transport",
+        "status": "Implemented or adopted",
+        "mode": [
+          "Cars"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": false,
+      "note": "Measure 3.5.1, Unconditional. Import age limit (>5 yrs) on light passenger/mixed vehicles under Decree-Law 30/2011 (amended 64/2022). Already adopted; to be maintained.",
+      "source": "claude",
+      "id": "r2"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "en",
+      "page": "76",
+      "verbatim": "The government will promote EVs in private transport by proposing a regulatory environment in support of the electrification of rickshaws or tum-tums. These vehicles not only are the main form of transport but also provide jobs and livelihoods for many families.",
+      "translation": "(English original)",
+      "fields": {
+        "category": "Electrification",
+        "purpose": "Promote electric mobility",
+        "instrument": "General e-mobility measures",
+        "asi": "Improve",
+        "activity": "Passenger transport",
+        "status": "Planned",
+        "mode": [
+          "Two-/Three-wheelers"
+        ],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Measure 3.5.2, Unconditional. EV promotion focused on electrifying rickshaws/tum-tums (three-wheelers). Mode set to Two-/Three-wheelers. p48-49 detail: electric tricycles already in public-transport use in Lautem, Liquiçá, Manatuto, Oecussi.",
+      "source": "claude",
+      "id": "r3"
+    },
+    {
+      "domain": "mitigation",
+      "lang": "en",
+      "page": "76",
+      "verbatim": "A transport master plan will be developed to build sector resilience and reduce emissions derived from the transport sector, creating policy entry points for promoting and supporting climate-friendly public transport options and non-motorised transport solutions.",
+      "translation": "(English original)",
+      "fields": {
+        "category": "Transport system improvements",
+        "purpose": "Enhance comprehensive transport planning",
+        "instrument": "National mobility plans",
+        "asi": "Shift",
+        "activity": "Both passenger and freight",
+        "status": "Planned",
+        "mode": [],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Measure 3.5.3, Conditional. Transport System Master Plan — enabling/planning framework covering public transport and non-motorised transport. Mapped to National mobility plans (Transport System Master Plan). Consider whether to also tag active mobility (non-motorised) as a second classification.",
+      "source": "claude",
+      "id": "r4"
+    },
+    {
+      "domain": "adaptation",
+      "lang": "en",
+      "page": "80",
+      "verbatim": "This includes proactive measures such as mapping displacement hotspots, developing participatory relocation strategies, and integrating mobility considerations into sectoral adaptation plans for housing, health, and livelihoods.",
+      "translation": "(English original)",
+      "fields": {
+        "category": "Institutional and Regulatory",
+        "measure": "Relocation",
+        "activity": "Not defined",
+        "mode": [],
+        "geography": []
+      },
+      "confirmed": false,
+      "flagged": true,
+      "note": "Section 5.4.3 Human Mobility as an Adaptation Strategy. This is planned relocation of populations (not transport infrastructure per se). Borderline for the transport tracker — 'Relocation' is a taxonomy adaptation measure but here it concerns people, not transport assets. Flagged: decide whether this belongs in the transport tracker at all.",
+      "source": "claude",
+      "id": "r5"
+    }
+  ]
+}
